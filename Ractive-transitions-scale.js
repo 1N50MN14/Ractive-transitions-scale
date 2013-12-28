@@ -52,7 +52,7 @@
 
 	// Common JS (i.e. browserify) environment
 	if ( typeof module !== 'undefined' && module.exports && typeof require === 'function' ) {
-		factory( require( 'ractive' ) );
+		factory( require( 'Ractive' ) );
 	}
 
 	// AMD?
@@ -83,9 +83,11 @@
 		to: 1
 	};
 
-	scale = function ( t ) {
-		var scaleTo = 'scale('+(t.to || defaults.to)+')',
-				scaleFrom = 'scale('+(t.from || defaults.from)+')',
+	scale = function ( t, params ) {
+		params = t.processParams(params, defaults);
+
+		var scaleTo = 'scale('+params.to+')',
+				scaleFrom = 'scale('+params.from+')',
 				targetOpacity, anim = {};
 
 		if ( t.isIntro ) {
@@ -98,14 +100,11 @@
 		}
 
 		// set defaults
-		t.duration = t.duration || defaults.duration;
-		t.easing = t.easing || defaults.easting;
-
 		anim.opacity = t.isIntro ? targetOpacity : 0;
 
 		if (t.fade !== false) anim.transform = t.isIntro ? scaleTo : scaleFrom;
 
-		t.animateStyle(anim);
+		t.animateStyle(anim, params, t.complete);
 	};
 
 	Ractive.transitions.scale = scale;
