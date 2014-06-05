@@ -26,7 +26,7 @@ Note: you may need to change the paths where it says `require( 'ractive' )` or `
 Example
 -----
 ```html
-<div intro='scale:{"fade":false, "duration":400}'>This will scale</div>
+<div intro='scale:{fade:false, duration:400}'>This will scale</div>
 ```
 
 Plugin defaults
