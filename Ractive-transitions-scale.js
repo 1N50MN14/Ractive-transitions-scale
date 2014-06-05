@@ -104,7 +104,8 @@
 
 		if (t.fade !== false) anim.transform = t.isIntro ? scaleTo : scaleFrom;
 
-		t.animateStyle(anim, params, t.complete);
+		t.animateStyle(anim, params).then(t.complete);
+		// as of 0.4.0 transitions return a promise and transition authors should do t.anymateStyle(params).then(action)
 	};
 
 	Ractive.transitions.scale = scale;
